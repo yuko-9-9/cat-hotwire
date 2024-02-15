@@ -11,4 +11,7 @@
   <% end %>
 </div>
 
+<%# ページネーションを表示する %>
+<%= paginate @cats %>
+
 <%= link_to "New cat", new_cat_path %>
