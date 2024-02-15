@@ -3,9 +3,12 @@ class CatsController < ApplicationController
 
   # GET /cats
   def index
-    # @cats = Cat.all
-    # @catsに対してページネートできるようにする
-    @cats = Cat.page(params[:page])
+    # `Cat.ransack`でCatに対してransackを使う
+    # params[:q]には検索フォームで指定した検索条件が入る
+    @search = Cat.ransack(params[:q])
+    # デフォルトのソートをid降順にする
+    @search.sorts = 'id desc' if @search.sorts.empty?
+    @cats = @search.result.page(params[:page])
   end
 
   # GET /cats/1
